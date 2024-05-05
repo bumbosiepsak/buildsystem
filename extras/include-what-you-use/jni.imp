@@ -1,0 +1,4 @@
+# Mappings for Java Native Interface
+[
+  { include: [ "\"jni_md.h\"", private, "<jni.h>", public ] },
+]

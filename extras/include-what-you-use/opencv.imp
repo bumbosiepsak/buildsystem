@@ -1,0 +1,7 @@
+# Mappings for OpenCV
+[
+  { include: [ "<opencv2/core/cvstd.inl.hpp>", private, "<opencv2/core.hpp>", public ] },
+  { include: [ "<opencv2/core/hal/interface.h>", private, "<opencv2/core.hpp>", public ] },
+  { include: [ "<opencv2/core/mat.hpp>", private, "<opencv2/core.hpp>", public ] },
+  { include: [ "<opencv2/core/mat.inl.hpp>", private, "<opencv2/core.hpp>", public ] },
+]
