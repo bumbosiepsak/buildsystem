@@ -4,8 +4,8 @@ import detail.text_files as text_files
 import ruamel.yaml as yaml
 
 
-def get_style_config(config_filename):
-    config_path = disk.file_in_tree(__file__, config_filename)
+def get_style_config(filename, config_filename):
+    config_path = disk.file_in_tree(filename, config_filename)
 
     if config_path is None:
         raise exceptions.BadSetup('Config file missing: {}'.format(config_filename))
@@ -15,7 +15,7 @@ def get_style_config(config_filename):
             return yaml.YAML().load(f)
 
     except (IOError, ValueError, yaml.YAMLError) as e:
-        raise exceptions.BadSetup('Config file malformed: {}'.format(config_filename))
+        raise exceptions.BadSetup('Config file malformed: {}'.format(config_path))
 
 
 def get_file_is(filename):
@@ -44,7 +44,7 @@ def get_file_wants(text, style_config):
 
 def is_garbled(filename):
     file_is = get_file_is(filename)
-    file_wants = get_file_wants(file_is, get_style_config('ruamel-format.yml'))
+    file_wants = get_file_wants(file_is, get_style_config(filename, 'ruamel-format.yml'))
     return (file_is != file_wants, file_wants)
 
 

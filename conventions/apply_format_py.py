@@ -5,7 +5,7 @@ import detail.exceptions as exceptions
 
 
 def run(args):
-    style_config = disk.file_in_tree(__file__, 'py-format.ini')
+    style_config = disk.file_in_tree(args.file, 'py-format.ini')
 
     if style_config is None:
         raise exceptions.BadSetup('Config file missing: py-format.ini')

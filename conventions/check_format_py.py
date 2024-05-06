@@ -4,14 +4,14 @@ import detail.disk as disk
 import detail.exceptions as exceptions
 
 
-def is_garbled(file):
-    style_config = disk.file_in_tree(__file__, 'py-format.ini')
+def is_garbled(filename, config_filename):
+    config_path = disk.file_in_tree(filename, config_filename)
 
-    if style_config is None:
-        raise exceptions.BadSetup('Config file missing: py-format.ini')
+    if config_path is None:
+        raise exceptions.BadSetup('Config file missing: {}'.format(config_filename))
 
     try:
-        (_, _, changed) = FormatFile(file, style_config=style_config, print_diff=True)
+        (_, _, changed) = FormatFile(filename, style_config=config_path, print_diff=True)
         return changed
 
     except YapfError as e:
@@ -19,5 +19,5 @@ def is_garbled(file):
 
 
 def run(args):
-    if is_garbled(args.file):
+    if is_garbled(args.file, 'py-format.ini'):
         raise exceptions.ConventionBreached()
