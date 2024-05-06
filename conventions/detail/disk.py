@@ -13,6 +13,6 @@ def file_in_tree(start, name):
     for directory in parent_directories(start):
         bingo = os.path.join(directory, name)
         if os.path.isfile(bingo):
-            return bingo.absolute()
+            return os.path.abspath(bingo)
 
     return None
