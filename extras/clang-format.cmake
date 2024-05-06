@@ -18,11 +18,15 @@ macro(clang_format_support_enable)
     )
 
     if(ARGS_ENABLED)
+        # NOTE: "clang-format" without suffixes needs to be the default for the sake of consumption by scripts
+        # and due to its inherent format instability between versions.
         tools_find_simple(CLANG_FORMAT
-            clang-format-${ARGS_VERSION}
             clang-format
-            clang-format-${ARGS_VERSION}.exe
             clang-format.exe
         )
+
+        if(NOT ${CLANG_FORMAT_VERSION} VERSION_EQUAL ${ARGS_VERSION})
+            print_fatal_error("Expecting clang-format version: ${ARGS_VERSION} got: ${CLANG_FORMAT_VERSION}")
+        endif()
     endif()
 endmacro(clang_format_support_enable)
