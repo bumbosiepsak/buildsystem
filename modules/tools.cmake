@@ -46,7 +46,7 @@ function(tools_find_python)
         print_fatal_error("Expecting minimum Python version: 3.8 got: ${Python3_VERSION}")
     endif()
 
-    set(PYTHON "${Python3_EXECUTABLE}" "-X" "pycache_prefix=${CMAKE_BINARY_DIR}" PARENT_SCOPE)
+    set(PYTHON "${Python3_EXECUTABLE}" "-X" "pycache_prefix=${CMAKE_BINARY_DIR}/pycache" PARENT_SCOPE)
 endfunction(tools_find_python)
 
 function(tools_find_render_version)
