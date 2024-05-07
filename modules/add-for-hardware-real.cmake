@@ -828,9 +828,22 @@ function(add_test_executable_qtest)
 endfunction(add_test_executable_qtest)
 
 # Adds a test executable, basing on Catch2
-# In: ARGV Arguments passed to test invocation
+# In: ARGUMENTS Arguments passed to test invocation
+# In: WITH_CUSTOM_MAIN Instructs Catch2, that the test provides its own 'main()' function
 function(add_test_executable_catch2)
+    cmake_parse_arguments(ARGS
+        "WITH_CUSTOM_MAIN"
+        ""
+        "ARGUMENTS"
+        ${ARGN}
+    )
     testing_enable_catch2()
+
+    if(ARGS_WITH_CUSTOM_MAIN)
+        set(catch2_target "Catch2::Catch2")
+    else()
+        set(catch2_target "Catch2::Catch2WithMain")
+    endif()
 
     if(COLOR_OUTPUT)
         set(color "yes")
@@ -839,8 +852,8 @@ function(add_test_executable_catch2)
     endif()
 
     add_test_executable(
-        DEPENDS Catch2::Catch2
-        ARGUMENTS ${ARGV} --durations yes --use-colour ${color}
+        DEPENDS ${catch2_target}
+        ARGUMENTS ${ARGS_ARGUMENTS} --durations yes --use-colour ${color}
     )
 endfunction(add_test_executable_catch2)
 
